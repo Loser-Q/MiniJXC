@@ -1,186 +1,106 @@
-﻿<div align="center">
-	<h2>中台admin</h2>
-	<h3>前后端分离后台权限管理系统</h3>
-	<p align="center">
-		<a href="https://learn.microsoft.com/zh-cn/aspnet/core/introduction-to-aspnet-core" target="_blank">
-			<img src="https://img.shields.io/badge/.NET-10.x-green" alt=".Net">
-		</a>
-		<a href="https://freesql.net" target="_blank">
-			<img src="https://img.shields.io/nuget/v/FreeSql?label=FreeSql&color=blue" alt="FreeSql">
-		</a>
-		<a href="https://autofac.org" target="_blank">
-		    <img src="https://img.shields.io/nuget/v/Autofac?label=Autofac&color=blueviolet" alt="Autofac">
-		</a>
-		<a href="https://github.com/rivenfx/Mapster-docs" target="_blank">
-			<img src="https://img.shields.io/nuget/v/Mapster?label=Mapster&color=orange" alt="Mapster">
-		</a>
-		<a href="https://cap.dotnetcore.xyz" target="_blank">
-			<img src="https://img.shields.io/nuget/v/DotNetCore.CAP?label=CAP&color=yellow" alt="DotNetCore.CAP">
-		</a>
-		<a href="https://github.com/zhontai/admin.ui.plus/blob/master/LICENSE" target="_blank">
-			<img src="https://img.shields.io/badge/license-MIT-success" alt="license">
-		</a>
-	</p>
-	<p align="center">
-		<span>中文</span> |   
-    <a href="README.en.md">English</a>
-	</p>
-	<p>&nbsp;</p>
-</div>
+# MiniJXC 简易进销存系统
 
-#### 🌈 介绍
+> 基于 Admin.Core 单体服务模式构建的微型企业进销存管理系统
 
-基于 .NET 10.0 + FreeSql 全家桶 + Autofac + Mapster + CAP 等技术，前后端分离后台权限管理系统。想你所想的开发理念，帮助大家快速上手开发。基于 FreeSql Orm 开发，支持国内外主流数据库、读写分离、分表分库、分布式事务 TCC/ SAGA 等功能。启动项目即自动生成数据库，CodeFirst 模式支持从实体配置自动同步表结构和权限数据到数据库中。启动项目使用新版 swagger 接口文档查看接口请求参数和响应数据。
+## 🚀 技术栈
 
-#### ⛱️ 线上预览
+| 层 | 技术 |
+|------|------|
+| **后端** | .NET 10 + FreeSql ORM + Autofac + Mapster + CAP |
+| **前端** | Vue 3 + Element Plus + TypeScript + Vite |
+| **数据库** | SQL Server（命名实例 `LJQ\SQLEXPRESS`，Windows集成认证） |
+| **API文档** | Swagger（`/doc/admin/swagger`） |
 
-- Admin.Core 在线体验地址 <a href="https://admin.zhontai.net/login" target="_blank">https://admin.zhontai.net</a>  
-  账号：user 
-  密码：123asd
+## 📦 功能模块
 
-#### 📚 开发文档
+| 模块 | 功能 | 状态 |
+|------|------|------|
+| **基础资料** | 商品管理、往来单位（客户/供应商）、仓库管理、结算账户 | ✅ 已完成 |
+| **购货管理** | 购货单（CRUD + 审核联动库存）、以销定购 | ✅ 后端完成 |
+| **销货管理** | 销货单（CRUD + 审核联动库存 + 库存不足校验） | ✅ 后端完成 |
+| **库存管理** | 库存查询、盘点单（盘盈/盘亏）、调拨单（双仓） | ✅ 后端完成 |
+| **资金管理** | 收款单（核销应收）、付款单（核销应付） | ✅ 后端完成 |
+| **编码规则** | 单据编号自动生成 | ✅ 后端完成 |
+| **进销存页面** | 购货单、销货单、收付款、库存、盘点、调拨 | ⏳ 待前端 |
 
-- 查看开发文档：<a href="https://www.zhontai.net" target="_blank">https://zhontai.net</a>
+## 🏃 启动
 
-#### 💒 代码仓库
+### 后端
 
-- Admin.Core v3 版本 <a href="https://github.com/zhontai/Admin.Core" target="_blank">https://github.com/zhontai/Admin.Core</a>
-
-#### 🚀 功能介绍
-
-1. **用户管理**：管理和查询用户，支持高级查询方案和按部门联动用户，用户可禁用/启用、设置/取消主管、重置密码、配置多角色和多部门、一键登录指定用户、查看在线离线状态、强制下线、部门转移、回收站。
-2. **角色管理**：管理角色和角色分组，支持按角色联动用户，设置菜单和数据权限，批量添加和移除员工。
-3. **部门管理**：管理部门，支持树形列表和图形展示。
-4. **权限管理**：多平台管理权限分组、菜单和权限点，权限点可设置多个接口地址，支持树形列表展示。
-5. **租户套餐**：管理租户套餐，支持设置菜单权限、批量添加和移除套餐企业。
-6. **租户管理**：管理租户，新增租户后自动初始化租户部门、默认角色和管理员。支持配置套餐、禁用/启用、一键登录租户管理员功能。
-7. **字典管理**：管理数据字典大类及其小类，支持按字典大类联动字典小类、字典小类有服务端多列排序、数据导入和导出功能。
-8. **任务调度**：管理和查看任务及其任务运行日志，支持任务新增、修改、删除、启动、暂停、立即执行、失败重试、发送告警邮件功能。
-9. **缓存管理**：缓存列表查询，支持根据缓存键清除缓存
-10. **接口管理**：管理接口，支持接口同步功能，主要用于新增权限点时选择接口，支持树形列表展示、操作日志开关、操作日志详情请求参数和响应结果配置。
-11. **视图管理**：管理视图，多平台视图，用于新增菜单时选择视图组件，支持树形列表展示。
-12. **文件管理**：管理文件上传，支持文件查询、上传到OSS或本地、下载、复制文件地址、删除文件、图片支持查看大图功能。
-13. **地区管理**：管理和查询地区，支持禁用/启用、设置/取消热门地区、一键同步全国行政区划地区数据
-14. **登录日志**：登录日志列表查询，记录用户登录成功和失败日志，支持IP归属地记录。
-15. **操作日志**：操作日志列表查询，记录用户操作正常和异常日志，支持IP归属地记录，查看操作日志详情。
-16. **个人中心**：个人信息展示和基本信息修改， 支持个人密码、手机和邮箱修改。
-17. **消息分类**：管理消息分类，支持2级自定义消息分类，用于消息管理消息分类选择。
-18. **消息管理**：管理消息，支持发送指定用户消息，可查看用户是否已读和已读时间。
-19. **站内信**：站内消息管理，支持消息详细查看、删除、标为已读、全部已读功能。
-20. **打印模板**：打印模板管理，支持组件拖拽、Json数据源配置、设计器、配置参数初始化、选择和自定义纸张、缩放、排版、打印、预览、查看模板 JSON 、保存和刷新打印模板功能。
-
-#### ⚡ 使用说明
-
-> 使用 .Net 最新版本 <a href="https://dotnet.microsoft.com/download/dotnet-core" target="_blank">.NET 版本 >= 10.0+</a>
-
-- 使用项目源码新建项目
-
-```bash
-# 克隆项目
-git clone https://github.com/zhontai/Admin.Core.git
-
-# 进入项目
-cd Admin.Core
-
-# 打开项目
-打开 ZhonTai.sln 解决方案
-
-# 运行项目
-设置 ZhonTai.Admin.Host 为启动项目 Ctrl + F5 直接编译运行项目
-或 在 ZhonTai.Admin.Host 目录打开 cmd 输入 dotnet run 命令运行项目
-
-# 打包发布
-选择 ZhonTai.Admin.Host 右键菜单点击发布
+```powershell
+cd src\modules\admin\ZhonTai.Admin.Host
+dotnet run
+# 访问 http://localhost:18010
+# API 文档 http://localhost:18010/doc/admin/swagger
+# 默认账号 admin / 123asd
 ```
 
-- 使用项目模板新建项目
+### 前端
 
-```bash
-# 安装模板
-dotnet new install ZhonTai.Template.App
-
-# 查看帮助
-dotnet new MyApp -h
-
-# 新建项目
-dotnet new MyApp -n MyCompanyName.MySys -at sys -ac sys -p 16010 -gp 16011 -db MySql
-
-# 运行项目
-设置 MyCompanyName.MySys.Host 为启动项目 Ctrl + F5 直接编译运行项目
-或 在 MyCompanyName.MySys.Host 目录打开 cmd 输入 dotnet run 命令运行项目
-
-# 打包发布
-选择 MyCompanyName.MySys.Host 右键菜单点击发布
+```powershell
+cd ui\zhontai.ui.admin.vue3
+pnpm dev
+# 访问前端页面
 ```
 
-使用Tye运行&调试模块项目：
+## 🗄️ 数据库
 
-1、安装Tye
+| 表名 | 说明 |
+|------|------|
+| `jxc_product` | 商品 |
+| `jxc_contact` | 往来单位（客户/供应商合并） |
+| `jxc_warehouse` | 仓库 |
+| `jxc_account` | 结算账户 |
+| `jxc_purchase` + `jxc_purchase_item` | 购货单 + 明细 |
+| `jxc_sale` + `jxc_sale_item` | 销货单 + 明细 |
+| `jxc_receipt` | 收款单 |
+| `jxc_payment` | 付款单 |
+| `jxc_inventory` | 库存流水 |
+| `jxc_stock_check` + `jxc_stock_check_item` | 盘点单 + 明细 |
+| `jxc_transfer` + `jxc_transfer_item` | 调拨单 + 明细 |
+| `jxc_bill_code_rule` | 单据编码规则 |
+
+## 📂 项目结构
+
 ```
-dotnet tool install -g Microsoft.Tye --version "0.12.0-*" --add-source https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet6/nuget/v3/index.json
+MiniJXC/
+├── src/
+│   ├── platform/                        # 框架层
+│   │   ├── ZhonTai.Common               # 通用工具
+│   │   ├── ZhonTai.DynamicApi           # 动态API（自动Controller）
+│   │   └── ZhonTai.ApiUI               # Swagger UI
+│   ├── modules/
+│   │   ├── admin/
+│   │   │   ├── ZhonTai.Admin.Core       # 权限核心
+│   │   │   ├── ZhonTai.Admin            # 业务服务层
+│   │   │   └── ZhonTai.Admin.Host       # 🚀 启动项目
+│   │   ├── business/
+│   │   │   └── MiniJXC.Business         # 📦 进销存业务模块
+│   │   │       ├── Entities/            # 11个实体类
+│   │   │       ├── Services/            # 12个Service
+│   │   │       └── Consts/              # 模块常量
+│   │   └── dev/                         # 代码生成器
+│   └── gateways/                        # 网关（单体模式未使用）
+└── ui/
+    └── zhontai.ui.admin.vue3/           # Vue3 前端
+        └── src/
+            ├── api/admin/               # 自动生成的API客户端
+            └── views/business/          # 进销存业务页面
+                ├── product/             # 商品管理 ✅
+                ├── contact/             # 往来单位 ✅
+                ├── warehouse/           # 仓库管理 ✅
+                └── account/             # 结算账户 ✅
 ```
 
-2、运行&调试
-```
-1、vs安装拓展EasyRun
+## 🎯 设计理念
 
-2、打开VS的 视图-> 其他窗口 -> EasyRun，点击打开EasyRun窗口
+相较精斗云的简化：
+- ❌ 去掉订单/单据分离（购货订单+购货单 → 购货单）
+- ❌ 去掉复杂审批流（保留单级审核/反审核）
+- ❌ 去掉组装拆卸、序列号、批次保质期
+- ❌ 去掉核销单（收款单/付款单直接核销）
+- ✅ 保留核心：商品/客户供应商/购货/销货/库存/收付款/盘点/调拨
 
-3、点击Tye按钮运行
+## 📄 License
 
-4、选择要调试的微服务点击Debugger按钮开启调试
-```
-
-运行前端项目
-
-1、克隆代码
-
-前端项目位于`ui\zhontai.ui.admin.vue3`文件夹内
-
-2、安装nrm
-```
-npm install -g nrm --registry https://registry.npmmirror.com
-
-#通过 nrm 列出所有可用的镜像源
-nrm ls
-
-#通过 nrm 使用淘宝的镜像源
-nrm use taobao
-```
-
-3、安装pnpm
-```
-npm install -g nrm --registry https://registry.npmmirror.com
-```
-
-4、安装 npm 包
-```
-pnpm run install:pkg
-```
-
-5、运行项目
-```
-pnpm run dev
-```
-
-#### 💯 学习交流加 QQ 群
-
-> 中台 admin 开发群（2000 人群）。
-
-- QQ 群号：<a target="_blank" href="//qm.qq.com/cgi-bin/qm/qr?k=zjVRMcdD_oxPokw7zG1kv8Ud4kPJUZAk&jump_from=webapi&authKey=smP6idH1QaIqi6NSiBck8nZuY1BokW4fpi/IGcRi6w/Xt/HTyqfqrC5WpVRsSi22">1058693879</a>
-
-  <a target="_blank" href="//qm.qq.com/cgi-bin/qm/qr?k=zjVRMcdD_oxPokw7zG1kv8Ud4kPJUZAk&jump_from=webapi&authKey=smP6idH1QaIqi6NSiBck8nZuY1BokW4fpi/IGcRi6w/Xt/HTyqfqrC5WpVRsSi22">
-  	<img src="https://zhontai.net/images/qq-group-1058693879.png" width="220" height="220" alt="中台admin 开发群" title="中台admin 开发群"/>
-  </a>
-
-#### 💕 特别感谢
-
-- <a href="https://github.com/dotnetcore/FreeSql" target="_blank">FreeSql</a>
-- <a href="https://github.com/2881099/FreeRedis" target="_blank">FreeRedis</a>
-- <a href="https://github.com/2881099/FreeSql.Cloud" target="_blank">FreeSql.Cloud</a>
-- <a href="https://github.com/2881099/FreeScheduler" target="_blank">FreeScheduler</a>
-
-#### 💌 支持作者
-
-如果觉得框架不错，或者已经在使用了，希望你可以去 <a target="_blank" href="https://github.com/zhontai/admin.core">Github</a> 或者
-<a target="_blank" href="https://gitee.com/zhontai/Admin.Core">Gitee</a> 帮我点个 ⭐ Star，这将是对我极大的鼓励与支持。
+MIT
