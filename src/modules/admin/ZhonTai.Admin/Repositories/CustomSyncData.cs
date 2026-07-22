@@ -277,11 +277,11 @@ public class CustomSyncData : SyncData, ISyncData
         {
             var isTenant = appConfig.Tenant;
 
-            await SyncEntityAsync<PrintTemplateEntity>(db, unitOfWork, dbConfig, appConfig, 
+            await SyncEntityAsync<PrintTemplateEntity>(db, unitOfWork, dbConfig, appConfig,
             whereFunc: (select, batchDataList) =>
             {
                 return select.Where(a =>
-                    batchDataList.Any(b => a.Id == b.Id 
+                    batchDataList.Any(b => a.Id == b.Id
                     || (!string.IsNullOrWhiteSpace(a.Name) && a.Name == b.Name)
                     || (!string.IsNullOrWhiteSpace(a.Code) && a.Code == b.Code))
                 );
@@ -292,7 +292,7 @@ public class CustomSyncData : SyncData, ISyncData
                     || (!string.IsNullOrWhiteSpace(a.Name) && a.Name == b.Name)
                     || (!string.IsNullOrWhiteSpace(a.Code) && a.Code == b.Code)));
             });
-            await SyncEntityAsync<RegionEntity>(db, unitOfWork, dbConfig, appConfig, processChilds: true, 
+            await SyncEntityAsync<RegionEntity>(db, unitOfWork, dbConfig, appConfig, processChilds: true,
             whereFunc: (select, batchDataList) =>
             {
                 return select.Where(a =>
@@ -311,33 +311,33 @@ public class CustomSyncData : SyncData, ISyncData
             whereFunc: (select, batchDataList) =>
             {
                 return select.Where(a =>
-                    batchDataList.Any(b => a.Id == b.Id 
+                    batchDataList.Any(b => a.Id == b.Id
                     || (a.ParentId == b.ParentId && !string.IsNullOrWhiteSpace(a.Name) && a.Name == b.Name))
                 );
             },
             insertDataFunc: (batchDataList, dbDataList) =>
             {
-                return batchDataList.Where(a => !dbDataList.Any(b => a.Id == b.Id 
+                return batchDataList.Where(a => !dbDataList.Any(b => a.Id == b.Id
                 || (!string.IsNullOrWhiteSpace(a.Name) && a.Name == b.Name)));
             });
             await SyncEntityAsync<DictEntity>(db, unitOfWork, dbConfig, appConfig, processChilds: true,
             whereFunc: (select, batchDataList) =>
             {
                 return select.Where(a =>
-                    batchDataList.Any(b => a.Id == b.Id 
+                    batchDataList.Any(b => a.Id == b.Id
                     || (a.ParentId == b.ParentId && a.DictTypeId == b.DictTypeId && !string.IsNullOrWhiteSpace(a.Name) && a.Name == b.Name))
                 );
             },
             insertDataFunc: (batchDataList, dbDataList) =>
             {
-                return batchDataList.Where(a => !dbDataList.Any(b => a.Id == b.Id 
+                return batchDataList.Where(a => !dbDataList.Any(b => a.Id == b.Id
                 || (a.DictTypeId == b.DictTypeId && !string.IsNullOrWhiteSpace(a.Name) && a.Name == b.Name)));
             });
-            await SyncEntityAsync<UserEntity>(db, unitOfWork, dbConfig, appConfig, 
+            await SyncEntityAsync<UserEntity>(db, unitOfWork, dbConfig, appConfig,
             whereFunc: (select, batchDataList) =>
             {
                 return select.Where(a =>
-                    batchDataList.Any(b => a.Id == b.Id 
+                    batchDataList.Any(b => a.Id == b.Id
                     || (!string.IsNullOrWhiteSpace(a.UserName) && a.UserName == b.UserName))
                 );
             });
@@ -347,13 +347,13 @@ public class CustomSyncData : SyncData, ISyncData
             {
                 if (appConfig.Tenant)
                     return select.Where(a =>
-                        batchDataList.Any(b => a.Id == b.Id 
-                        || (a.TenantId == b.TenantId && a.ParentId == b.ParentId 
+                        batchDataList.Any(b => a.Id == b.Id
+                        || (a.TenantId == b.TenantId && a.ParentId == b.ParentId
                         && !string.IsNullOrWhiteSpace(a.Name) && a.Name == b.Name))
                     );
                 else
                     return select.Where(a =>
-                        batchDataList.Any(b => a.Id == b.Id 
+                        batchDataList.Any(b => a.Id == b.Id
                         || (a.ParentId == b.ParentId && !string.IsNullOrWhiteSpace(a.Name) && a.Name == b.Name))
                     );
             },
@@ -361,18 +361,18 @@ public class CustomSyncData : SyncData, ISyncData
             {
                 return batchDataList.Where(a => !dbDataList.Any(b => a.Id == b.Id));
             });
-            await SyncEntityAsync<RoleEntity>(db, unitOfWork, dbConfig, appConfig, 
+            await SyncEntityAsync<RoleEntity>(db, unitOfWork, dbConfig, appConfig,
             whereFunc: (select, batchDataList) =>
             {
                 if (appConfig.Tenant)
                     return select.Where(a =>
-                        batchDataList.Any(b => a.Id == b.Id 
-                        || (a.TenantId == b.TenantId && a.ParentId == b.ParentId 
+                        batchDataList.Any(b => a.Id == b.Id
+                        || (a.TenantId == b.TenantId && a.ParentId == b.ParentId
                         && !string.IsNullOrWhiteSpace(a.Name) && a.Name == b.Name))
                     );
                 else
                     return select.Where(a =>
-                       batchDataList.Any(b => a.Id == b.Id 
+                       batchDataList.Any(b => a.Id == b.Id
                        || (a.ParentId == b.ParentId && !string.IsNullOrWhiteSpace(a.Name) && a.Name == b.Name))
                    );
             },
@@ -380,11 +380,11 @@ public class CustomSyncData : SyncData, ISyncData
             {
                 return batchDataList.Where(a => !dbDataList.Any(b => a.Id == b.Id || (a.TenantId == b.TenantId && a.ParentId == b.ParentId && !string.IsNullOrWhiteSpace(a.Name) && a.Name == b.Name)));
             });
-            await SyncEntityAsync<ApiEntity>(db, unitOfWork, dbConfig, appConfig, processChilds: true, 
+            await SyncEntityAsync<ApiEntity>(db, unitOfWork, dbConfig, appConfig, processChilds: true,
             whereFunc: (select, batchDataList) =>
             {
                 return select.Where(a =>
-                    batchDataList.Any(b => a.Id == b.Id 
+                    batchDataList.Any(b => a.Id == b.Id
                     || (a.ParentId == b.ParentId && !string.IsNullOrWhiteSpace(a.Path) && a.Path == b.Path))
                 );
             },
@@ -392,27 +392,44 @@ public class CustomSyncData : SyncData, ISyncData
             {
                 return batchDataList.Where(a => !dbDataList.Any(b => a.Id == b.Id || (a.ParentId == b.ParentId && !string.IsNullOrWhiteSpace(a.Path) && a.Path == b.Path)));
             });
-            await SyncEntityAsync<ViewEntity>(db, unitOfWork, dbConfig, appConfig, processChilds: true, 
+            await SyncEntityAsync<ViewEntity>(db, unitOfWork, dbConfig, appConfig, processChilds: true,
             whereFunc: (select, batchDataList) =>
             {
                 return select.Where(a =>
                     batchDataList.Any(b=> a.Id == b.Id
                     || (a.ParentId == b.ParentId && !string.IsNullOrWhiteSpace(a.Platform) && a.Platform == b.Platform
                     && !string.IsNullOrWhiteSpace(a.Label) && a.Label == b.Label))
-                   
+
                 );
             },
             insertDataFunc: (batchDataList, dbDataList) =>
             {
-                return batchDataList.Where(a => !dbDataList.Any(b => a.Id == b.Id 
+                return batchDataList.Where(a => !dbDataList.Any(b => a.Id == b.Id
                     || (!string.IsNullOrWhiteSpace(a.Platform) && a.Platform == b.Platform
                     && a.ParentId == b.ParentId && !string.IsNullOrWhiteSpace(a.Label) && a.Label == b.Label)));
             });
-            await SyncEntityAsync<PermissionEntity>(db, unitOfWork, dbConfig, appConfig, processChilds: true, 
+
+            // 同步 Business 模块的视图
+            await SyncEntityAsync<ViewEntity>(db, unitOfWork, dbConfig, appConfig,
+                readPath: $"{dbConfig.SyncDataPath}/Business", processChilds: true,
+                whereFunc: (select, batchDataList) =>
+                {
+                    return select.Where(a =>
+                        batchDataList.Any(b => a.Id == b.Id
+                        || (a.ParentId == b.ParentId && !string.IsNullOrWhiteSpace(a.Label) && a.Label == b.Label))
+                    );
+                },
+                insertDataFunc: (batchDataList, dbDataList) =>
+                {
+                    return batchDataList.Where(a => !dbDataList.Any(b => a.Id == b.Id
+                        || (a.ParentId == b.ParentId && !string.IsNullOrWhiteSpace(a.Label) && a.Label == b.Label)));
+                });
+
+            await SyncEntityAsync<PermissionEntity>(db, unitOfWork, dbConfig, appConfig, processChilds: true,
             whereFunc: (select, batchDataList) =>
             {
                 return select.Where(a =>
-                    batchDataList.Any(b => a.Id == b.Id 
+                    batchDataList.Any(b => a.Id == b.Id
                     || (!string.IsNullOrWhiteSpace(a.Platform) && a.Platform == b.Platform
                     && a.ParentId == b.ParentId && !string.IsNullOrWhiteSpace(a.Label) && a.Label == b.Label))
                 );
@@ -423,6 +440,23 @@ public class CustomSyncData : SyncData, ISyncData
                     || (!string.IsNullOrWhiteSpace(a.Platform) && a.Platform == b.Platform
                     && a.ParentId == b.ParentId && !string.IsNullOrWhiteSpace(a.Label) && a.Label == b.Label)));
             });
+
+            // 同步 Business 模块的权限
+            await SyncEntityAsync<PermissionEntity>(db, unitOfWork, dbConfig, appConfig,
+                readPath: $"{dbConfig.SyncDataPath}/Business", processChilds: true,
+                whereFunc: (select, batchDataList) =>
+                {
+                    return select.Where(a =>
+                        batchDataList.Any(b => a.Id == b.Id
+                        || (a.ParentId == b.ParentId && !string.IsNullOrWhiteSpace(a.Label) && a.Label == b.Label))
+                    );
+                },
+                insertDataFunc: (batchDataList, dbDataList) =>
+                {
+                    return batchDataList.Where(a => !dbDataList.Any(b => a.Id == b.Id
+                        || (a.ParentId == b.ParentId && !string.IsNullOrWhiteSpace(a.Label) && a.Label == b.Label)));
+                });
+
             await SyncEntityAsync<TenantEntity>(db, unitOfWork, dbConfig, appConfig);
             await InitUserRoleAsync(db, unitOfWork, dbConfig);
             await InitUserOrgAsync(db, unitOfWork, dbConfig);
