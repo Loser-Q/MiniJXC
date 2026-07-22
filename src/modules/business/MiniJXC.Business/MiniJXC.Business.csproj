@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="../../../platform/Directory.Build.props" />
+	<PropertyGroup>
+		<Description>MiniJXC 进销存业务模块</Description>
+		<OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\platform\ZhonTai.Common\ZhonTai.Common.csproj" />
+		<ProjectReference Include="..\..\..\platform\ZhonTai.DynamicApi\ZhonTai.DynamicApi.csproj" />
+		<ProjectReference Include="..\..\admin\ZhonTai.Admin\ZhonTai.Admin.csproj" />
+	</ItemGroup>
+</Project>

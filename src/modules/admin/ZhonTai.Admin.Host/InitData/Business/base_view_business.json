@@ -1,0 +1,229 @@
+[
+  {
+    "id": 170000000000001,
+    "platform": null,
+    "parentId": 0,
+    "name": null,
+    "label": "进销存管理",
+    "path": null,
+    "description": null,
+    "cache": true,
+    "sort": 2,
+    "enabled": true,
+    "childs": [
+      {
+        "id": 170000000000101,
+        "platform": null,
+        "parentId": 170000000000001,
+        "name": null,
+        "label": "基础资料",
+        "path": null,
+        "description": null,
+        "cache": true,
+        "sort": 1,
+        "enabled": true,
+        "childs": [
+          {
+            "id": 170000000000111,
+            "platform": null,
+            "parentId": 170000000000101,
+            "name": "business/product",
+            "label": "商品管理",
+            "path": "business/product/index",
+            "description": null,
+            "cache": true,
+            "sort": 1,
+            "enabled": true,
+            "childs": []
+          },
+          {
+            "id": 170000000000112,
+            "platform": null,
+            "parentId": 170000000000101,
+            "name": "business/contact",
+            "label": "往来单位",
+            "path": "business/contact/index",
+            "description": null,
+            "cache": true,
+            "sort": 2,
+            "enabled": true,
+            "childs": []
+          },
+          {
+            "id": 170000000000113,
+            "platform": null,
+            "parentId": 170000000000101,
+            "name": "business/warehouse",
+            "label": "仓库管理",
+            "path": "business/warehouse/index",
+            "description": null,
+            "cache": true,
+            "sort": 3,
+            "enabled": true,
+            "childs": []
+          },
+          {
+            "id": 170000000000114,
+            "platform": null,
+            "parentId": 170000000000101,
+            "name": "business/account",
+            "label": "结算账户",
+            "path": "business/account/index",
+            "description": null,
+            "cache": true,
+            "sort": 4,
+            "enabled": true,
+            "childs": []
+          }
+        ]
+      },
+      {
+        "id": 170000000000201,
+        "platform": null,
+        "parentId": 170000000000001,
+        "name": null,
+        "label": "购货管理",
+        "path": null,
+        "description": null,
+        "cache": true,
+        "sort": 2,
+        "enabled": true,
+        "childs": [
+          {
+            "id": 170000000000211,
+            "platform": null,
+            "parentId": 170000000000201,
+            "name": "business/purchase",
+            "label": "购货单",
+            "path": "business/purchase/index",
+            "description": null,
+            "cache": true,
+            "sort": 1,
+            "enabled": true,
+            "childs": []
+          }
+        ]
+      },
+      {
+        "id": 170000000000301,
+        "platform": null,
+        "parentId": 170000000000001,
+        "name": null,
+        "label": "销货管理",
+        "path": null,
+        "description": null,
+        "cache": true,
+        "sort": 3,
+        "enabled": true,
+        "childs": [
+          {
+            "id": 170000000000311,
+            "platform": null,
+            "parentId": 170000000000301,
+            "name": "business/sale",
+            "label": "销货单",
+            "path": "business/sale/index",
+            "description": null,
+            "cache": true,
+            "sort": 1,
+            "enabled": true,
+            "childs": []
+          }
+        ]
+      },
+      {
+        "id": 170000000000401,
+        "platform": null,
+        "parentId": 170000000000001,
+        "name": null,
+        "label": "库存管理",
+        "path": null,
+        "description": null,
+        "cache": true,
+        "sort": 4,
+        "enabled": true,
+        "childs": [
+          {
+            "id": 170000000000411,
+            "platform": null,
+            "parentId": 170000000000401,
+            "name": "business/inventory",
+            "label": "库存查询",
+            "path": "business/inventory/index",
+            "description": null,
+            "cache": true,
+            "sort": 1,
+            "enabled": true,
+            "childs": []
+          },
+          {
+            "id": 170000000000412,
+            "platform": null,
+            "parentId": 170000000000401,
+            "name": "business/stock-check",
+            "label": "盘点单",
+            "path": "business/stock-check/index",
+            "description": null,
+            "cache": true,
+            "sort": 2,
+            "enabled": true,
+            "childs": []
+          },
+          {
+            "id": 170000000000413,
+            "platform": null,
+            "parentId": 170000000000401,
+            "name": "business/transfer",
+            "label": "调拨单",
+            "path": "business/transfer/index",
+            "description": null,
+            "cache": true,
+            "sort": 3,
+            "enabled": true,
+            "childs": []
+          }
+        ]
+      },
+      {
+        "id": 170000000000501,
+        "platform": null,
+        "parentId": 170000000000001,
+        "name": null,
+        "label": "资金管理",
+        "path": null,
+        "description": null,
+        "cache": true,
+        "sort": 5,
+        "enabled": true,
+        "childs": [
+          {
+            "id": 170000000000511,
+            "platform": null,
+            "parentId": 170000000000501,
+            "name": "business/receipt",
+            "label": "收款单",
+            "path": "business/receipt/index",
+            "description": null,
+            "cache": true,
+            "sort": 1,
+            "enabled": true,
+            "childs": []
+          },
+          {
+            "id": 170000000000512,
+            "platform": null,
+            "parentId": 170000000000501,
+            "name": "business/payment",
+            "label": "付款单",
+            "path": "business/payment/index",
+            "description": null,
+            "cache": true,
+            "sort": 2,
+            "enabled": true,
+            "childs": []
+          }
+        ]
+      }
+    ]
+  }
+]
