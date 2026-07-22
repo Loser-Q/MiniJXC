@@ -82,9 +82,9 @@ public partial class AuthService : BaseService, IAuthService, IDynamicApi
         Lazy<IUserRepository> userRep,
         Lazy<ITenantRepository> tenantRep,
         Lazy<IPermissionRepository> permissionRep,
-        Lazy<IPasswordHasher<UserEntity>> passwordHasher,
-        Lazy<ISlideCaptcha> captcha,
-        Lazy<ITenantService> tenantService
+        Lazy<IPasswordHasher<UserEntity>> passwordHasher = null,
+        Lazy<ISlideCaptcha> captcha = null,
+        Lazy<ITenantService> tenantService = null
     )
     {
         _appConfig = appConfig;
@@ -158,8 +158,8 @@ public partial class AuthService : BaseService, IAuthService, IDynamicApi
     {
         return new LoginLogAddInput
         {
-            TenantId = authLoginOutput.TenantId,
-            Name = authLoginOutput.Name,
+            TenantId = authLoginOutput?.TenantId ?? user.TenantId,
+            Name = authLoginOutput?.Name ?? user.Name,
             ElapsedMilliseconds = stopwatch.ElapsedMilliseconds,
             Status = true,
             CreatedUserId = authLoginOutput.Id,
@@ -243,7 +243,7 @@ public partial class AuthService : BaseService, IAuthService, IDynamicApi
             new (JwtRegisteredClaimNames.Iat, DateTime.Now.ToTimestamp().ToString(), ClaimValueTypes.Integer64),
         };
 
-        if (_appConfig.Value.Tenant)
+        if (_appConfig.Value.Tenant && user.Tenant != null && user.TenantId.HasValue)
         {
             claims.AddRange(
             [
@@ -329,9 +329,9 @@ public partial class AuthService : BaseService, IAuthService, IDynamicApi
         .Where(u => u.Id == User.Id)
         .FirstAsync(u => new AuthUserProfileOutput
         {
-            DeptName = u.Org.Name,
-            CorpName = u.Tenant.Org.Name,
-            Position = u.Staff.Position,
+            DeptName = u.Org != null ? u.Org.Name : "",
+            CorpName = "",
+            Position = u.Staff != null ? u.Staff.Position : "",
             Sex = u.Staff.Sex,
             WorkWeChatCard = u.Staff.WorkWeChatCard,
         });
@@ -599,14 +599,14 @@ public partial class AuthService : BaseService, IAuthService, IDynamicApi
         {
             #region 验证码校验
 
-            if (_appConfig.Value.VarifyCode.Enable)
+            if (_appConfig.Value.VarifyCode.Enable && !string.IsNullOrEmpty(input.CaptchaId))
             {
                 if (input.CaptchaId.IsNull() || input.CaptchaData.IsNull())
                 {
                     throw ResultOutput.Exception(_adminLocalizer["请完成安全验证"]);
                 }
-                var validateResult = _captcha.Value.Validate(input.CaptchaId, JsonHelper.Deserialize<SlideTrack>(input.CaptchaData));
-                if (validateResult.Result != ValidateResultType.Success)
+        var validateResult = _captcha?.Value?.Validate(input.CaptchaId, JsonHelper.Deserialize<SlideTrack>(input.CaptchaData));
+        if (validateResult?.Result != ValidateResultType.Success)
                 {
                     throw ResultOutput.Exception(_adminLocalizer["安全{0}，请重新登录", validateResult.Message]);
                 }
@@ -616,7 +616,7 @@ public partial class AuthService : BaseService, IAuthService, IDynamicApi
 
             #region 密码解密
 
-            if (input.PasswordKey.NotNull())
+            if (input.PasswordKey.NotNull() && _appConfig.Value.PasswordHasher)
             {
                 var passwordEncryptKey = CacheKeys.PassWordEncrypt + input.PasswordKey;
                 var existsPasswordKey = await Cache.ExistsAsync(passwordEncryptKey);
@@ -715,7 +715,7 @@ public partial class AuthService : BaseService, IAuthService, IDynamicApi
 
             #region 获得token
             var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
-            if (_appConfig.Value.Tenant)
+            if (_appConfig.Value.Tenant && user.Tenant != null && user.TenantId.HasValue)
             {
                 var tenant = await _tenantRep.Value.Select.WhereDynamic(user.TenantId).ToOneAsync<AuthLoginTenantModel>();
                 if (!(tenant != null && tenant.Enabled))
@@ -728,7 +728,7 @@ public partial class AuthService : BaseService, IAuthService, IDynamicApi
             var tokenInfo = GetTokenInfo(authLoginOutput);
             #endregion
 
-            loginLogAddInput.TenantId = authLoginOutput.TenantId;
+            loginLogAddInput.TenantId = authLoginOutput?.TenantId;
 
             //更新最后登录信息
             await UpdateLastLoginInfoAsync(user.Id, ip, locationInfo);
@@ -822,7 +822,7 @@ public partial class AuthService : BaseService, IAuthService, IDynamicApi
 
             #region 获得token
             var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
-            if (_appConfig.Value.Tenant)
+            if (_appConfig.Value.Tenant && user.Tenant != null && user.TenantId.HasValue)
             {
                 var tenant = await _tenantRep.Value.Select.WhereDynamic(user.TenantId).ToOneAsync<AuthLoginTenantModel>();
                 if (!(tenant != null && tenant.Enabled))
@@ -834,7 +834,7 @@ public partial class AuthService : BaseService, IAuthService, IDynamicApi
             var tokenInfo = GetTokenInfo(authLoginOutput);
             #endregion
 
-            loginLogAddInput.TenantId = authLoginOutput.TenantId;
+            loginLogAddInput.TenantId = authLoginOutput?.TenantId;
 
             //更新最后登录信息
             await UpdateLastLoginInfoAsync(user.Id, ip, locationInfo);
@@ -932,7 +932,7 @@ public partial class AuthService : BaseService, IAuthService, IDynamicApi
 
             #region 获得token
             var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
-            if (_appConfig.Value.Tenant)
+            if (_appConfig.Value.Tenant && user.Tenant != null && user.TenantId.HasValue)
             {
                 var tenant = await _tenantRep.Value.Select.WhereDynamic(user.TenantId).ToOneAsync<AuthLoginTenantModel>();
                 if (!(tenant != null && tenant.Enabled))
@@ -944,7 +944,7 @@ public partial class AuthService : BaseService, IAuthService, IDynamicApi
             var tokenInfo = GetTokenInfo(authLoginOutput);
             #endregion
 
-            loginLogAddInput.TenantId = authLoginOutput.TenantId;
+            loginLogAddInput.TenantId = authLoginOutput?.TenantId;
 
             //更新最后登录信息
             await UpdateLastLoginInfoAsync(user.Id, ip, locationInfo);
@@ -1253,7 +1253,7 @@ public partial class AuthService : BaseService, IAuthService, IDynamicApi
             throw ResultOutput.Exception(_adminLocalizer["账号已停用，禁止登录"]);
         }
 
-        if (_appConfig.Value.Tenant)
+        if (_appConfig.Value.Tenant && user.Tenant != null && user.TenantId.HasValue)
         {
             if (!(user.Tenant != null && user.Tenant.Enabled))
             {

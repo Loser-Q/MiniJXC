@@ -178,14 +178,21 @@ public class User : IUser
     /// <returns></returns>
     DataPermissionOutput GetDataPermission()
     {
-        var cache = _accessor?.HttpContext?.RequestServices.GetRequiredService<ICacheTool>();
-        if (cache == null)
+        try
         {
-            return null;
+            var cache = _accessor?.HttpContext?.RequestServices.GetRequiredService<ICacheTool>();
+            if (cache == null)
+            {
+                return null;
+            }
+            else
+            {
+                return cache.Get<DataPermissionOutput>(CacheKeys.GetDataPermissionKey(Id)) ?? new DataPermissionOutput();
+            }
         }
-        else
+        catch
         {
-            return cache.Get<DataPermissionOutput>(CacheKeys.GetDataPermissionKey(Id));
+            return new DataPermissionOutput();
         }
     }
 
