@@ -52,7 +52,7 @@
     //同步所有表["base_view", "base_permission", ...]
     //同步指定表["base_api", "base_view", "base_permission", "base_permission_api"]
     //同步数据包含表，指定表同步，不填同步所有表
-    "syncDataIncludeTables": ["base_view", "base_permission"],
+    "syncDataIncludeTables": [],
     //同步排除表["base_user"]
     //同步数据排除表，指定表不同步
     "syncDataExcludeTables": [],
